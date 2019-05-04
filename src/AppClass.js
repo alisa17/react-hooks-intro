@@ -21,6 +21,10 @@ class App extends Component {
     document.title = `You have been clicked ${this.state.count} times`;
   }
 
+  componenetWillUnmount(){
+      window.removeEventListener("mousemove", this.handleMouseMove);
+  }
+
   toggleLight = () => {
     this.setState(prevState => ({
       isOn: !prevState.isOn
