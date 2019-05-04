@@ -3,11 +3,22 @@ import React, { useState, useEffect } from "react";
 const App = () => {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
 
-// by default useEffect runs after each render
+  // by default useEffect runs after each render
   useEffect(() => {
     document.title = `You have clicked ${count} times`;
+    window.addEventListener("mousemove", handleMouseMove);
+
+// clean up function:
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    }
   });
+
+  const handleMouseMove = event => {
+    setMousePosition({x: event.pageX, y: event.pageY});
+  }
 
   const incrementCount = () => {
     setCount(prevCount => prevCount + 1);
@@ -35,6 +46,9 @@ const App = () => {
         alt="Flashlight"
         onClick={toggleLight}
       />
+      <h2>Mouse Position</h2>
+      {JSON.stringify(mousePosition, null, 2)}
+      <br/>
     </>
   );
 };
