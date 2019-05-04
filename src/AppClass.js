@@ -6,21 +6,26 @@ class App extends Component {
     isOn: false
   };
 
-componentDidMount() {
-  document.title = `You have been clicked ${this.state.count} times`
-}
+  componentDidMount() {
+    document.title = `You have been clicked ${this.state.count} times`;
+    window.addEventListener("mousemove", this.handleMouseMove);
+  }
 
-componentDidUpdate() {
-  document.title = `You have been clicked ${this.state.count} times`
-}
-
-component
+  handleMouseMove = event => {
+    this.setState({
+      x: event.pageX,
+      y: event.pageY
+    });
+  };
+  componentDidUpdate() {
+    document.title = `You have been clicked ${this.state.count} times`;
+  }
 
   toggleLight = () => {
     this.setState(prevState => ({
       isOn: !prevState.isOn
-    }))
-  }
+    }));
+  };
 
   incrementCount = () => {
     this.setState(prevState => ({
@@ -44,6 +49,10 @@ component
           }}
           onClick={this.toggleLight}
         />
+
+        <h2>Mouse Position</h2>
+        <p>X Position: {this.state.x}</p>
+        <p>Y Position: {this.state.y}</p>
       </>
     );
   }
