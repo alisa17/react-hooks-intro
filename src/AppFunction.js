@@ -4,22 +4,33 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: null, y: null });
+  const [status, setStatus] = useState(navigator.onLine);
 
   // by default useEffect runs after each render
-  useEffect(() => {
-    document.title = `You have clicked ${count} times`;
-    window.addEventListener("mousemove", handleMouseMove);
+  useEffect(
+    () => {
+      document.title = `You have clicked ${count} times`;
+//listeners on component mount
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
 
-// clean up function:
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    }
-    // run useEffect only when the value in the array changes (if it was empty array it would only run on mount and unmount):
-  }, [count]);
+      // clean up function:
+      return () => {
+        //listeners on component Unmount
+
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+      // run useEffect only when the value in the array changes (if it was empty array it would only run on mount and unmount):
+    },
+    [count]
+  );
 
   const handleMouseMove = event => {
-    setMousePosition({x: event.pageX, y: event.pageY});
-  }
+    setMousePosition({ x: event.pageX, y: event.pageY });
+  };
 
   const incrementCount = () => {
     setCount(prevCount => prevCount + 1);
@@ -27,6 +38,14 @@ const App = () => {
 
   const toggleLight = () => {
     setIsOn(prevIsOn => !prevIsOn);
+  };
+
+  const handleOnline = () => {
+    setStatus(true);
+  };
+
+  const handleOffline = () => {
+    setStatus(false);
   };
 
   return (
@@ -49,7 +68,12 @@ const App = () => {
       />
       <h2>Mouse Position</h2>
       {JSON.stringify(mousePosition, null, 2)}
-      <br/>
+      <br />
+
+      <h2>Network Status</h2>
+      <p>
+        You are <strong>{status ? "online" : "offline"}</strong>
+      </p>
     </>
   );
 };
