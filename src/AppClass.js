@@ -6,6 +6,16 @@ class App extends Component {
     isOn: false
   };
 
+componentDidMount() {
+  document.title = `You have been clicked ${this.state.count} times`
+}
+
+componentDidUpdate() {
+  document.title = `You have been clicked ${this.state.count} times`
+}
+
+component
+
   toggleLight = () => {
     this.setState(prevState => ({
       isOn: !prevState.isOn

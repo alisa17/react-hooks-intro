@@ -4,6 +4,7 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(false);
 
+// by default useEffect runs after each render
   useEffect(() => {
     document.title = `You have clicked ${count} times`;
   });
