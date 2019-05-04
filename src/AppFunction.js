@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const App = () => {
   const [count, setCount] = useState(0);
   const [isOn, setIsOn] = useState(false);
+
+  useEffect(() => {
+    document.title = `You have clicked ${count} times`;
+  });
 
   const incrementCount = () => {
     setCount(prevCount => prevCount + 1);
   };
 
   const toggleLight = () => {
-    setIsOn(prevIsOn => !prevIsOn)
-  }
+    setIsOn(prevIsOn => !prevIsOn);
+  };
 
   return (
     <>
@@ -19,12 +23,13 @@ const App = () => {
       <h2>Toggle Light</h2>
       <img
         src={
-          isOn ? 'https://icon.now.sh/highlight/fd0'
-          : 'https://icon.now.sh/highlight/aaa'
+          isOn
+            ? "https://icon.now.sh/highlight/fd0"
+            : "https://icon.now.sh/highlight/aaa"
         }
         style={{
           height: "50px",
-          width: "50px",
+          width: "50px"
         }}
         alt="Flashlight"
         onClick={toggleLight}
