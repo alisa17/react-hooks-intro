@@ -14,7 +14,8 @@ const App = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     }
-  });
+    // run useEffect only when the value in the array changes (if it was empty array it would only run on mount and unmount):
+  }, [count]);
 
   const handleMouseMove = event => {
     setMousePosition({x: event.pageX, y: event.pageY});
