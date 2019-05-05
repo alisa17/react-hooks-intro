@@ -12,6 +12,8 @@ export default function Login() {
       password
     };
     setUser(userData);
+    setUsername("");
+    setPassword("");
   };
   return (
     <div
@@ -32,11 +34,14 @@ export default function Login() {
           type="text"
           placeholder="Username"
           onChange={event => setUsername(event.target.value)}
+          // make our component a controlled component - i.e. we want the values in the inputs to be controlled by what we have in state:
+          value={username}
         />
         <input
           type="text"
           placeholder="Password"
           onChange={event => setPassword(event.target.value)}
+          value={password}
         />
         <button type="submit">Submit</button>
       </form>
